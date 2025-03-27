@@ -3,10 +3,15 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
+const gallery = document.querySelector('.gallery');
+
+
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt', 
+  captionDelay: 250,   
+});
 
 export function renderImages(images) {
-  const gallery = document.querySelector('.gallery');
-
   const markup = images
     .map(
       ({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => `
@@ -27,14 +32,9 @@ export function renderImages(images) {
 
   gallery.insertAdjacentHTML("beforeend", markup); 
 
-  
-  const lightbox = new SimpleLightbox('.gallery a', {
-    captionsData: 'alt', 
-    captionDelay: 250,   
-  });
+  lightbox.refresh();
 }
 
 export function clearGallery() {
-  const gallery = document.querySelector(".gallery");
   gallery.innerHTML = "";
 }
